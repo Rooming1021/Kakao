@@ -220,6 +220,7 @@ function cancelEditingMessage({ resetName = true, silent = false } = {}) {
   state.editingMessageId = null;
   updateEditUI();
   resetComposerDraft({ resetName });
+  renderMessages();
 
   if (!silent && state.isAdminMode) {
     setSyncStatus("ok", "수정 취소");
@@ -306,6 +307,7 @@ function beginEditingMessage(message) {
   resizeTextarea();
   updateAuthorUI();
   updateEditUI();
+  renderMessages();
   setSyncStatus("ok", "수정 준비");
   messageInput.focus();
 }
@@ -534,6 +536,7 @@ async function enterAdminMode() {
     setSenderTimeNow();
     updateAdminUI();
     applyComposerState();
+    renderMessages();
     setSyncStatus("ok", "관리자 연결됨");
     messageInput.focus();
   } catch (error) {
@@ -549,6 +552,7 @@ function exitAdminMode() {
   state.adminPassword = "";
   updateAdminUI();
   applyComposerState();
+  renderMessages();
   setSyncStatus("ok", "읽기 전용");
 }
 
